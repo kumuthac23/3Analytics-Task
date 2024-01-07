@@ -41,7 +41,7 @@ const LoginForm: React.FC<{
     <form style={{ width: "300px" }} onSubmit={handleSubmit(onSubmit)}>
       <div className="login-form-input-container">
         <label htmlFor="username" className="py-1">
-          UserName
+          Username
         </label>
         <input
           type="text"

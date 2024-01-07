@@ -24,7 +24,7 @@ function Navbar() {
       <nav className="navbar navbar-expand-lg bg-danger">
         <div className="container">
           <h2 className="navbar-brand text-white font-weight-bold">
-            3Analytics
+            3Analytics-Task
           </h2>
           {/* Conditionally render the sign-out icon only if not on the login page */}
           {!isLoginPage && (
