@@ -34,7 +34,7 @@ class PostComments extends Component<WithRouterProps, PostCommentState> {
   }
 
   handleGoBack = () => {
-    window.history.back(); 
+    window.history.back();
   };
 
   render() {
@@ -43,11 +43,10 @@ class PostComments extends Component<WithRouterProps, PostCommentState> {
     return (
       <div className="container">
         <div className="d-flex p-2">
-          <i
-            className="fa fa-arrow-left fa-2x text-danger"
-            onClick={this.handleGoBack}
-            role="button"
-          ></i>
+          <div className="d-flex" role="button" onClick={this.handleGoBack}>
+            <i className="fa fa-arrow-left fa-2x"></i>
+            <h5 className="p-1">GoBack</h5>
+          </div>
           <Bounce top delay={500} duration={1000}>
             <h2 className="text-danger mx-auto">Comments</h2>
           </Bounce>

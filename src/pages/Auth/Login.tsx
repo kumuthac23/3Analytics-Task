@@ -17,6 +17,7 @@ interface ILoginProps {
   navigate: NavigateFunction;
 }
 
+//yup validation schema
 const schema = yup.object().shape({
   username: yup.string().required("UserName Required"),
   password: yup.string().required("Password Required"),
