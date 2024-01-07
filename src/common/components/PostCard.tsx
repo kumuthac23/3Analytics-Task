@@ -30,7 +30,7 @@ export class PostCard extends Component<PostCardPropType> {
           <div>
             <button
               type="button"
-              className="btn btn-outline-success position-absolute btn-sm"
+              className="btn btn-outline-danger position-absolute btn-sm"
               style={{ bottom: "10px", right: "10px" }}
               onClick={this.handleViewCommentsButtonClick}
             >

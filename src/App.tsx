@@ -6,11 +6,13 @@ import Loader from "./common/components/Loader";
 import PostComments from "./pages/posts/PostComments";
 import Layout from "./Layout";
 import PrivateRoute from "./common/components/PrivateRoute";
-import Login from "./pages/Auth/Login";
+import Login from "./pages/auth/Login";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <>
+      <Toaster position="top-center" />
       <Routes>
         <Route path={paths.ROOT} element={<Layout />}>
           <Route

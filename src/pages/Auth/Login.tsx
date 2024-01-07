@@ -1,81 +1,101 @@
-import { Component } from "react";
-import { NavigateFunction, useNavigate } from "react-router-dom";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { paths } from "../../paths/paths";
 import { authenticate } from "../../authservice";
+import toast from "react-hot-toast";
+import {
+  ContactFormInitialValue,
+  IContactFormResolver,
+} from "../../interface/types";
 
-interface LoginState {
-  username: string;
-  password: string;
-}
+import { NavigateFunction } from "react-router-dom";
 
 interface ILoginProps {
   navigate: NavigateFunction;
 }
 
-class Login extends Component<ILoginProps, LoginState> {
-  constructor(props: ILoginProps) {
-    super(props);
-    this.state = {
-      username: "",
-      password: "",
-    };
-  }
+const schema = yup.object().shape({
+  username: yup.string().required("UserName Required"),
+  password: yup.string().required("Password Required"),
+});
 
-  async handleLogin(userName: string, password: string) {
-    const generatedToken = await authenticate(userName, password);
+const LoginForm: React.FC<{
+  onSubmit: (data: IContactFormResolver) => void;
+}> = ({ onSubmit }) => {
+  const {
+    handleSubmit,
+    formState: { errors },
+    register,
+  } = useForm<IContactFormResolver>({
+    resolver: yupResolver(schema),
+    defaultValues: ContactFormInitialValue,
+  });
+
+  return (
+    <form style={{ width: "300px" }} onSubmit={handleSubmit(onSubmit)}>
+      <div className="login-form-input-container">
+        <label htmlFor="username" className="py-1">
+          UserName
+        </label>
+        <input
+          type="text"
+          id="username"
+          required
+          className={`form-control border border-black ${
+            errors.username ? "is-invalid" : ""
+          }`}
+          {...register("username")}
+        />
+        {errors.username && (
+          <div className="invalid-feedback">{errors.username.message}</div>
+        )}
+      </div>
+      <div className="login-form-input-container">
+        <label htmlFor="password" className="py-1">
+          Password
+        </label>
+        <input
+          type="password"
+          required
+          id="password"
+          className={`form-control border border-black ${
+            errors.password ? "is-invalid" : ""
+          }`}
+          {...register("password")}
+        />
+        {errors.password && (
+          <div className="invalid-feedback">{errors.password.message}</div>
+        )}
+      </div>
+      <button type="submit" className="btn btn-danger w-100 mt-2">
+        Login
+      </button>
+    </form>
+  );
+};
+
+class Login extends React.Component<ILoginProps> {
+  handleLogin = async (data: IContactFormResolver) => {
+    const generatedToken = await authenticate(data.username, data.password);
 
     if (generatedToken) {
-      this.props.navigate(paths.ROOT);
-     
+      toast.success("Login Successfully");
+      this.props.navigate(paths.ROOT);// Call the navigate function
     }
-  }
+  };
 
   render() {
-    const { username, password } = this.state;
     return (
       <div>
         <div
-          className="form-container border border-success rounded mx-auto"
+          className="form-container border border-danger rounded mx-auto"
           style={{ height: "370px", width: "350px" }}
         >
           <h3>Login</h3>
-          <form style={{ width: "300px" }}>
-            <div className="login-form-input-container">
-              <label htmlFor="username" className=" py-1">
-                UserName
-              </label>
-              <input
-                type="text"
-                name="username"
-                id="username"
-                required
-                className="form-control border border-black"
-                value={username}
-                onChange={(e) => this.setState({ username: e.target.value })}
-              />
-            </div>
-            <div className="login-form-input-container">
-              <label htmlFor="password" className=" py-1">
-                Password
-              </label>
-              <input
-                type="password"
-                required
-                name="password"
-                id="password"
-                className="form-control border border-black"
-                value={password}
-                onChange={(e) => this.setState({ password: e.target.value })}
-              />
-            </div>
-            <button
-              type="button"
-              className="btn btn-success w-100 mt-2"
-              onClick={() => this.handleLogin(username, password)}
-            >
-              Login
-            </button>
-          </form>
+          <LoginForm onSubmit={this.handleLogin} />
         </div>
       </div>
     );
@@ -84,6 +104,5 @@ class Login extends Component<ILoginProps, LoginState> {
 
 export default function () {
   const navigate = useNavigate();
-
   return <Login navigate={navigate} />;
 }

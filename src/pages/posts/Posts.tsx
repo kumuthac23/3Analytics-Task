@@ -3,6 +3,8 @@ import { fetchPosts, fetchUsers } from "../../services/api";
 import { PostsProps, PostsState } from "../../interface/types";
 import PostCard from "../../common/components/PostCard";
 import PostsFilters from "./PostsFilters";
+import Fade from "react-reveal/Fade";
+import Bounce from "react-reveal/Bounce";
 
 export class Posts extends Component<PostsProps, PostsState> {
   constructor(props: PostsProps) {
@@ -185,8 +187,8 @@ export class Posts extends Component<PostsProps, PostsState> {
                     }`}
                   >
                     <a
-                      className={`page-link text-success ${
-                        currentPage === i + 1 ? "bg-success text-light" : ""
+                      className={`page-link text-danger ${
+                        currentPage === i + 1 ? "bg-danger text-light" : ""
                       }`}
                       href="#"
                       onClick={() => this.handlePageChange(i + 1)}
@@ -214,15 +216,19 @@ export class Posts extends Component<PostsProps, PostsState> {
           </div>
         </div>
         <div className="container">
-          <h2 className="text-center p-2 text-success">Posts</h2>
-          <div className="row g-3 text-success">
+          <Bounce top duration={1000}>
+            <h2 className="text-center p-2 text-danger">Posts</h2>
+          </Bounce>
+          <div className="row g-3 text-danger">
             {posts.length > 0 ? (
               posts.map((post, index) => (
                 <div
                   key={index}
                   className="col-md-6 col-lg-3 col-sm-6 d-flex justify-content-center"
                 >
-                  <PostCard post={post} />
+                  <Fade bottom duration={1000}>
+                    <PostCard post={post} />
+                  </Fade>
                 </div>
               ))
             ) : (

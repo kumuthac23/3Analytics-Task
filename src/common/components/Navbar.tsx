@@ -1,6 +1,7 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { paths } from "../../paths/paths";
+import toast from "react-hot-toast";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -8,6 +9,7 @@ function Navbar() {
 
   const handleLogoutIconClick = () => {
     localStorage.removeItem("3analystics_token");
+    toast.success("Logout Successfully");
     navigate(paths.LOGIN);
   };
 
@@ -16,7 +18,7 @@ function Navbar() {
 
   return (
     <div>
-      <nav className="navbar navbar-expand-lg bg-success">
+      <nav className="navbar navbar-expand-lg bg-danger">
         <div className="container">
           <h2 className="navbar-brand text-white font-weight-bold">
             3Analytics

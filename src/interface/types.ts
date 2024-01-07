@@ -55,3 +55,13 @@ export interface ISnackbarState {
   snackbarMessage: string;
   snackbarSeverity: string;
 }
+
+export interface IContactFormResolver {
+  username: string;
+  password: string;
+}
+
+export const ContactFormInitialValue: IContactFormResolver = {
+  username: "",
+  password: "",
+};

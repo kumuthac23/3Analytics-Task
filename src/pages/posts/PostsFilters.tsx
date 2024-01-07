@@ -40,7 +40,7 @@ function PostsFilters(props: PostFilterPropsType) {
         value={props.searchTerm}
       />
       <button
-        className="btn btn-outline-success"
+        className="btn btn-outline-danger"
         onClick={() => props.onClearFilter()}
       >
         Clear
