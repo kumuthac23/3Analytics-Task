@@ -6,6 +6,7 @@ import PostsFilters from "./PostsFilters";
 import Fade from "react-reveal/Fade";
 import Bounce from "react-reveal/Bounce";
 
+// Class component for rendering a list of posts with filters
 export class Posts extends Component<PostsProps, PostsState> {
   constructor(props: PostsProps) {
     super(props);
@@ -20,11 +21,13 @@ export class Posts extends Component<PostsProps, PostsState> {
     };
   }
 
+  // Lifecycle method called when the component mounts
   componentDidMount(): void {
     this.getUserList();
     this.getPostList(this.state.limit, this.state.currentPage);
   }
 
+  // Lifecycle method called when the component updates
   componentDidUpdate(_prevProps: PostsProps, preState: PostsState) {
     if (
       preState.limit != this.state.limit ||
@@ -41,6 +44,7 @@ export class Posts extends Component<PostsProps, PostsState> {
     }
   }
 
+  // Asynchronous function to fetch posts based on filters
   async getPostList(
     limit: number,
     page: number,
@@ -67,6 +71,7 @@ export class Posts extends Component<PostsProps, PostsState> {
     }
   }
 
+  // Asynchronous function to fetch the list of users
   async getUserList() {
     try {
       const users = await fetchUsers();
@@ -82,6 +87,7 @@ export class Posts extends Component<PostsProps, PostsState> {
     }
   }
 
+  // Handler function for changing the limit of posts displayed per page
   handleLimitChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newLimit = parseInt(event.target.value, 10);
 
@@ -94,6 +100,7 @@ export class Posts extends Component<PostsProps, PostsState> {
     });
   };
 
+  // Handler function for changing the current page of posts
   handlePageChange = (page: number) => {
     this.setState((prevState) => {
       return {
@@ -103,6 +110,7 @@ export class Posts extends Component<PostsProps, PostsState> {
     });
   };
 
+  // Handler function for changing the user filter
   handleUserFilterChange = (userId: number) => {
     this.setState((prevState) => {
       return {
@@ -113,6 +121,7 @@ export class Posts extends Component<PostsProps, PostsState> {
     });
   };
 
+  // Handler function for changing the search term filter
   handleSearchTermChange = (searchTerm: string) => {
     this.setState((prevState) => {
       return {
@@ -123,6 +132,7 @@ export class Posts extends Component<PostsProps, PostsState> {
     });
   };
 
+  // Handler function for clearing all filters
   handleClearFilter = () => {
     this.setState((prevState) => {
       return {
@@ -134,6 +144,7 @@ export class Posts extends Component<PostsProps, PostsState> {
     });
   };
 
+  // Render method to render the component content
   render() {
     const { posts, limit, currentPage, totalCount, users, searchTerm, userId } =
       this.state;
@@ -141,6 +152,7 @@ export class Posts extends Component<PostsProps, PostsState> {
 
     return (
       <>
+        {/* Filter and pagination controls */}
         <div className="container d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
           <PostsFilters
             searchTerm={searchTerm}
@@ -154,6 +166,8 @@ export class Posts extends Component<PostsProps, PostsState> {
             onClearFilter={() => this.handleClearFilter()}
             selectedUser={userId}
           />
+          {/* Display options for the number of posts to be shown per page */}
+          <div className="d-flex gap-2"></div>
           <div className="d-flex gap-2">
             <label style={{ fontSize: "20px" }}>Take count:</label>
             <select

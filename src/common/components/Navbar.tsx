@@ -7,8 +7,11 @@ function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Function to handle the click event on the logout icon
   const handleLogoutIconClick = () => {
+    // Remove the authentication token from local storage
     localStorage.removeItem("3analystics_token");
+    // Display a success toast message for successful logout
     toast.success("Logout Successfully");
     navigate(paths.LOGIN);
   };
@@ -23,6 +26,7 @@ function Navbar() {
           <h2 className="navbar-brand text-white font-weight-bold">
             3Analytics
           </h2>
+          {/* Conditionally render the sign-out icon only if not on the login page */}
           {!isLoginPage && (
             <i
               className="fa fa-sign-out text-white fa-2x"

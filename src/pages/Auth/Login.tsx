@@ -13,16 +13,18 @@ import {
 
 import { NavigateFunction } from "react-router-dom";
 
+// Interface defining the props for the Login component
 interface ILoginProps {
   navigate: NavigateFunction;
 }
 
-//yup validation schema
+// Yup validation schema for the login form
 const schema = yup.object().shape({
   username: yup.string().required("UserName Required"),
   password: yup.string().required("Password Required"),
 });
 
+// LoginForm component for rendering the login form
 const LoginForm: React.FC<{
   onSubmit: (data: IContactFormResolver) => void;
 }> = ({ onSubmit }) => {
@@ -78,16 +80,19 @@ const LoginForm: React.FC<{
   );
 };
 
+// Class component representing the Login page
 class Login extends React.Component<ILoginProps> {
   handleLogin = async (data: IContactFormResolver) => {
     const generatedToken = await authenticate(data.username, data.password);
 
+    // If authentication is successful, show success toast and navigate to the root page
     if (generatedToken) {
       toast.success("Login Successfully");
-      this.props.navigate(paths.ROOT);// Call the navigate function
+      this.props.navigate(paths.ROOT); // Call the navigate function
     }
   };
 
+  // Render method for the Login component
   render() {
     return (
       <div>
@@ -103,6 +108,7 @@ class Login extends React.Component<ILoginProps> {
   }
 }
 
+// Functional component that provides the Login component with the useNavigate hook
 export default function () {
   const navigate = useNavigate();
   return <Login navigate={navigate} />;

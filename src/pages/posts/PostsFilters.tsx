@@ -1,6 +1,7 @@
 import React from "react";
 import { IUser } from "../../interface/types";
 
+// Type for the props received by PostsFilters component
 type PostFilterPropsType = {
   users: IUser[];
   onUserFilterChange(userId: number): void;
@@ -10,6 +11,7 @@ type PostFilterPropsType = {
   searchTerm: string;
 };
 
+// Functional component for rendering filters for posts
 function PostsFilters(props: PostFilterPropsType) {
   return (
     <div className="d-flex gap-3">
@@ -22,6 +24,7 @@ function PostsFilters(props: PostFilterPropsType) {
         value={props.selectedUser}
       >
         <option value={0}>Select user</option>
+        {/* Mapping over users to populate dropdown options */}
         {props.users &&
           props.users.length > 0 &&
           props.users.map((user) => (
@@ -39,6 +42,7 @@ function PostsFilters(props: PostFilterPropsType) {
         onChange={(event) => props.onSearchTermChange(event.target.value)}
         value={props.searchTerm}
       />
+      {/* Button to clear filters */}
       <button
         className="btn btn-outline-danger"
         onClick={() => props.onClearFilter()}

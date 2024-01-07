@@ -4,11 +4,13 @@ import { NavigateFunction, useNavigate } from "react-router-dom";
 
 type PostCardPropType = PostCardProps & { navigate: NavigateFunction };
 
+// Class component representing a post card
 export class PostCard extends Component<PostCardPropType> {
   constructor(props: PostCardPropType) {
     super(props);
   }
 
+  // Handle the click event on the "View Comments" button
   handleViewCommentsButtonClick = () => {
     const { post, navigate } = this.props;
     const postId = post.id;
@@ -43,6 +45,7 @@ export class PostCard extends Component<PostCardPropType> {
   }
 }
 
+// Functional component that wraps the PostCard component with the useNavigate hook
 export default function (props: PostCardProps) {
   const navigate = useNavigate();
 

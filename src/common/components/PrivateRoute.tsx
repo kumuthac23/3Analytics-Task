@@ -6,7 +6,9 @@ import { verifyToken } from "../../authservice";
 function PrivateRoute({ children }: { children: ReactNode }) {
   const navigate = useNavigate();
 
+  // Function to check the authentication token in local storage
   const checkTokenInCookies = async () => {
+    // Get the authentication token from local storage
     const authToken = localStorage.getItem("3analystics_token");
     if (authToken) {
       var isLoggedIn = await verifyToken(authToken);
@@ -21,6 +23,7 @@ function PrivateRoute({ children }: { children: ReactNode }) {
     }
   };
 
+  // to check the token when the component mounts
   useEffect(() => {
     checkTokenInCookies();
   }, []);

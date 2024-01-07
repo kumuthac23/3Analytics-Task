@@ -5,10 +5,12 @@ import { useParams } from "react-router-dom";
 import Fade from "react-reveal/Fade";
 import Bounce from "react-reveal/Bounce";
 
+// Define the state for the PostComments component
 type PostCommentState = {
   commentsData: IComment[];
 };
 
+// Class component representing the comments for a specific post
 class PostComments extends Component<WithRouterProps, PostCommentState> {
   constructor(props: WithRouterProps) {
     super(props);
@@ -18,10 +20,12 @@ class PostComments extends Component<WithRouterProps, PostCommentState> {
     };
   }
 
+  // Lifecycle method called when the component mounts
   componentDidMount() {
     this.getCommentsByPostId();
   }
 
+  // Asynchronous function to fetch comments for a post by post ID
   async getCommentsByPostId() {
     try {
       const commentsData = await fetchCommentsByPostId(
@@ -33,10 +37,12 @@ class PostComments extends Component<WithRouterProps, PostCommentState> {
     }
   }
 
+  // Handler function to navigate back to the previous page
   handleGoBack = () => {
     window.history.back();
   };
 
+  // Render method to render the component content
   render() {
     const { commentsData } = this.state;
 
@@ -82,6 +88,7 @@ class PostComments extends Component<WithRouterProps, PostCommentState> {
   }
 }
 
+// Functional component using useParams hook to get route parameters
 export default function () {
   const params = useParams();
 
